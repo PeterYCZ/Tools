@@ -4,9 +4,11 @@ from flask import request
 from flask_wtf import Form
 from wtforms import StringField,SubmitField
 from wtforms.validators import Required
+from flask.ext.bootstrap import Bootstrap
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='hard to guess string'
+bootstrap = Bootstrap(app)
 
 class NameForm(Form):
     name = StringField('What is your name?',validators =[Required()])
