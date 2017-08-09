@@ -1,0 +1,5 @@
+Flask>=0.12
+WTForms>=2.1
+Flask_Bootstrap>=3.3
+Flask_WTF>=0.14
+WTForms>=2.1
