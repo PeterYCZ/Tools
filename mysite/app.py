@@ -4,25 +4,29 @@ from flask import request
 from flask_wtf import Form
 from wtforms import StringField,SubmitField
 from wtforms.validators import Required
-from flask.ext.bootstrap import Bootstrap
+from flask_bootstrap import Bootstrap
+from form import DataForm,NameForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='hard to guess string'
 bootstrap = Bootstrap(app)
 
-class NameForm(Form):
-    name = StringField('What is your name?',validators =[Required()])
-    submit = SubmitField('Submit')
-    def validate_on_submit(x):
-        return True
  
 @app.route('/',methods=['GET','POST'])
 def index():
+    Year = None
+    Month = None
+    Day = None
     name = None
-    form = NameForm(request.form)
-    if request.method == 'POST':
-        name = request.form['What is your name?']
-    return render_template('index.html',form=form,name=name)
+    form = DataForm()
+    if form.validate_on_submit():
+       Year = form.Year.data
+       Month = form.Month.data
+       Day = form.Day.data
+       form.Year.data = ''
+       form.Month.data = ''
+       form.Day.data = ''
+    return render_template('index.html',form=form)
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
