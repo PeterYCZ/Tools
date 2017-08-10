@@ -1,1 +1,3 @@
 pip install -r requirements.txt
+nohup python -u app.py
+ps -ef | grep command
