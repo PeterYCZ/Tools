@@ -54,7 +54,7 @@ ROOT_URLCONF = 'learning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR+"/templates",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,12 +73,30 @@ WSGI_APPLICATION = 'learning.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'EnergyGovDB',
+        'USER': 'ShLogin',
+        'PASSWORD': 'Sh,login,1234',
+        'HOST': '10.1.121.116',
+        'PORT': '1433',
+    },
+
+    'OPTIONS': {
+        'driver': 'ODBC Driver 13 for SQL Server',
+    },
+
+}
+'''
 
 
 # Password validation
