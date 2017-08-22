@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+  <link rel="stylesheet"
+          href="../static/css/chartist.min.css"> 
+{% endblock %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Spark{%endblock%}
+{% block page_content %}
+  <div class="page-header">
+     <h1>Hello,my friend!</h1>
+  </div>
+  <div class="ct-chart ct-golden-section" id="chart1"></div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+  <script src="../static/js/chartist.min.js"></script>
+  <script src="../static/js/chart.js"></script>
+{% endblock %}
+
