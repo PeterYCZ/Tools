@@ -6,7 +6,7 @@ from wtforms import StringField,SubmitField
 from wtforms.validators import Required
 from flask_bootstrap import Bootstrap
 from form import DataForm,NameForm
-import thread
+import threading
 import time
 
 app = Flask(__name__)
@@ -23,6 +23,18 @@ def isVaildDate(date):
 def doanything(year,month,day):
     return True
 
+class mythread(threading.Thread):
+    def __init__(self,id):
+       threading.Thread.__init__(self)
+       self.id = id
+    def settime(self,year,month,day):
+       self.year = year
+       self.month = month  
+       self.day = day    
+    def run(self):
+       doanything(self.year,self.month,self.day)
+       time.sleep(10)
+
 @app.route('/',methods=['GET','POST'])
 def index():
     Year = None
@@ -34,9 +46,13 @@ def index():
        Year = form.Year.data
        Month = form.Month.data
        Day = form.Day.data
-       date = Year+Month+Day
+       date = Year+'-'+Month+'-'+Day
        if isVaildDate(date) == True:
-           thread.start_new_thread(doanything,(Year,Month,Day))
+           a = mythread(1)
+           a.settime(Year,Month,Day)
+           a.start()
+           while a.is_alive() == True:
+               return render_template('wait.html')
        else:
            return render_template('error.html')
        form.Year.data = ''
@@ -48,6 +64,10 @@ def index():
 @app.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+@app.route('/chart/')
+def chart():
+    return render_template('chart.html')
 
 if __name__ == "__main__":
   app.run(debug=True, use_reloader=True)
