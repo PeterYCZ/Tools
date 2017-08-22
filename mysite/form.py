@@ -8,6 +8,10 @@ class DataForm(Form):
     Day = StringField('Day:', validators =[Required(),Length(min=1, max=30)])
     submit = SubmitField("Confirmed")
 
+class DownloadForm(Form):
+    ID = StringField('ID:', validators =[Required(),Length(min=1, max=30)])
+    submit = SubmitField('Download')
+
 class NameForm(Form):
     name = StringField('What is your name?',validators =[Required()])
     submit = SubmitField('Submit')
