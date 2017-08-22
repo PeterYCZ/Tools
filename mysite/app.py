@@ -1,3 +1,5 @@
+from flask import send_from_directory,send_file
+from flask import make_response
 from flask import render_template
 from flask import Flask
 from flask import request
@@ -5,13 +7,17 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField
 from wtforms.validators import Required
 from flask_bootstrap import Bootstrap
-from form import DataForm,NameForm
+from form import DataForm,NameForm,DownloadForm
+import os
 import threading
 import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='hard to guess string'
 bootstrap = Bootstrap(app)
+
+def send_js(ID):
+     return send_file('data/example.csv',as_attachment=True)
 
 def isVaildDate(date):
     try:
@@ -59,6 +65,16 @@ def index():
        form.Month.data = ''
        form.Day.data = ''
     return render_template('index.html',form=form)
+
+@app.route('/download',methods=['GET','POST'])
+def download():
+    ID = None
+    form = DownloadForm()
+    if form.validate_on_submit():
+        ID = form.ID.data
+        response = make_response(send_js(ID))
+        return response
+    return render_template('download.html',form=form)
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
