@@ -2,5 +2,5 @@
 *.pyc
 
 #virtualenv
-/venv
+mysite/venv
 
