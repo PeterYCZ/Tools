@@ -10,4 +10,28 @@
 <div>
 {{ wtf.quick_form(form)}} 
 </div>
+<div class="content">
+   <div class="container-fluid">
+       <div class="row">
+           <div class="col-lg-6 col-md-12">
+               <div class="card">
+                   <div class="card-content table-responsive">
+                      <table class="table table-hover">
+                        <thead class="text-warning">
+                             <th>ID</th>
+                        </thead>
+                        <tbody>
+                           {% for T_ID in T_ID %}
+                              <tr>
+                                 <td>{{ T_ID }}</td>
+                              </tr>                                          
+                           {% endfor %}
+                        </tbody>
+                      </table>
+                   </div>
+               </div>
+           </div>
+      </div>
+   </div>
+</div>
 {% endblock %}

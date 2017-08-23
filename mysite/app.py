@@ -9,12 +9,20 @@ from wtforms.validators import Required
 from flask_bootstrap import Bootstrap
 from form import DataForm,NameForm,DownloadForm
 import os
+import pyodbc
 import threading
 import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='hard to guess string'
 bootstrap = Bootstrap(app)
+
+def getT_ID():
+    T_ID = [('201708221505', ), ('201708221600', ), ('201708221715', )]
+    for i in range(len(T_ID)):
+        a = str(T_ID[i])
+        T_ID[i] = a[2:len(a)-3]
+    return T_ID
 
 def send_js(ID):
      return send_file('data/example.csv',as_attachment=True)
@@ -70,11 +78,12 @@ def index():
 def download():
     ID = None
     form = DownloadForm()
+    T_ID = getT_ID()
     if form.validate_on_submit():
         ID = form.ID.data
         response = make_response(send_js(ID))
         return response
-    return render_template('download.html',form=form)
+    return render_template('download.html',form=form,T_ID = T_ID)
 
 @app.route('/hello/')
 @app.route('/hello/<name>')
