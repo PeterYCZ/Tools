@@ -12,6 +12,11 @@ class DownloadForm(Form):
     ID = StringField('ID:', validators =[Required(),Length(min=1, max=30)])
     submit = SubmitField('Download')
 
+class ChartForm(Form):
+    ID = StringField('ID:', validators =[Required(),Length(min=1, max=30)])
+    BuildingID = StringField('BuildingID:', validators =[Required(),Length(min=1, max=30)])
+    submit = SubmitField('Submit')
+
 class NameForm(Form):
     name = StringField('What is your name?',validators =[Required()])
     submit = SubmitField('Submit')
