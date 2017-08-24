@@ -7,7 +7,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,SubmitField
 from wtforms.validators import Required
 from flask_bootstrap import Bootstrap
-from form import DataForm,NameForm,DownloadForm
+from form import *
 import os
 import pyodbc
 import threading
@@ -16,6 +16,10 @@ import time
 app = Flask(__name__)
 app.config['SECRET_KEY']='hard to guess string'
 bootstrap = Bootstrap(app)
+
+def getdatafromsql(BuildingID,ID):
+    data = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    return data
 
 def getT_ID():
     T_ID = [('201708221505', ), ('201708221600', ), ('201708221715', )]
@@ -90,9 +94,17 @@ def download():
 def hello(name=None):
     return render_template('hello.html', name=name)
 
-@app.route('/chart/')
+@app.route('/chart/',methods=['GET','POST'])
 def chart():
-    return render_template('chart.html')
+    data = None
+    ID = None
+    BuildingID = None
+    form = ChartForm()
+    if form.validate_on_submit():
+        ID = form.ID.data
+        BuildingID = form.BuildingID.data
+        data = getdatafromsql(BuildingID,ID)
+    return render_template('chart.html',form = form,data = data)
 
 if __name__ == "__main__":
   app.run(debug=True, use_reloader=True)
