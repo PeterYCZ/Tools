@@ -18,7 +18,9 @@ app.config['SECRET_KEY']='hard to guess string'
 bootstrap = Bootstrap(app)
 
 def getdatafromsql(BuildingID,ID):
-    data = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    olddata = [12,3,4,5,6,2,1,7,5,13,14,11,10,8]
+    newdata = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    data =[olddata,newdata]
     return data
 
 def getT_ID():
@@ -52,6 +54,10 @@ class mythread(threading.Thread):
     def run(self):
        doanything(self.year,self.month,self.day)
        time.sleep(10)
+
+@app.route('/test',methods=['GET','POST'])
+def test():
+    return render_template('test.html')
 
 @app.route('/',methods=['GET','POST'])
 def index():
@@ -96,7 +102,8 @@ def hello(name=None):
 
 @app.route('/chart/',methods=['GET','POST'])
 def chart():
-    data = None
+    olddata = None
+    newdata = None
     ID = None
     BuildingID = None
     form = ChartForm()
@@ -104,7 +111,9 @@ def chart():
         ID = form.ID.data
         BuildingID = form.BuildingID.data
         data = getdatafromsql(BuildingID,ID)
-    return render_template('chart.html',form = form,data = data)
+        olddata = data[0]
+        newdata = data[1]
+    return render_template('chart.html',form = form,olddata = olddata,newdata =newdata)
 
 if __name__ == "__main__":
   app.run(debug=True, use_reloader=True)
