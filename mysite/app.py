@@ -18,8 +18,12 @@ app.config['SECRET_KEY']='hard to guess string'
 bootstrap = Bootstrap(app)
 
 def getdatafromsql(BuildingID,ID):
-    olddata = [12,3,4,5,6,2,1,7,5,13,14,11,10,8]
-    newdata = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+    olddata = []
+    for i in range(336):
+        olddata.append(i)
+    newdata = []
+    for i in range(336):
+        newdata.append(2*i+1)
     data =[olddata,newdata]
     return data
 
@@ -111,8 +115,8 @@ def chart():
         ID = form.ID.data
         BuildingID = form.BuildingID.data
         data = getdatafromsql(BuildingID,ID)
-        olddata = data[0]
-        newdata = data[1]
+        olddata = data[0][0:24]
+        newdata = data[1][0:24]
     return render_template('chart.html',form = form,olddata = olddata,newdata =newdata)
 
 if __name__ == "__main__":
