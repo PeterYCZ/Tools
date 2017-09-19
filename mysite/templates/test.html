@@ -10,7 +10,45 @@
       <span v-text="message"></span>
     </h>
   </div>
+  <div id="app">  
+    <button @click="toshow">press this button</button>  
+    <component v-bind:is="which_to_show"></component>  
+  </div>  
   </body>
+  <script src="../static/js/jquery-3.1.1.min.js""></script>
   <script src="../static/js/vue.js""></script>
   <script src="../static/js/learning.vue.js"></script>
+  <script src="../static/js/chartist.min.js"></script>
+  <script src="../static/js/chart.js"></script>
+  <script>  
+    var vm = new Vue({  
+        el: '#app',  
+        data: {  
+            which_to_show: "first"  
+        },  
+        methods: {  
+            toshow: function () {  
+                var arr = ["first", "second", "third", ""];  
+                var index = arr.indexOf(this.which_to_show);  
+                if (index < 3) {  
+                    this.which_to_show = arr[index + 1];  
+                } else {  
+                    this.which_to_show = arr[0];  
+                }  
+                console.log(this.$children);  
+            }  
+        },  
+        components: {  
+            first: { 
+                template: "<div>the first</div>"  
+            },  
+            second: { 
+                template: "<div>the second</div>"  
+            },  
+            third: { 
+                template: "<div>the third</div>"  
+            }  
+        }  
+    });  
+  </script>  
 </html>
