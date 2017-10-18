@@ -19,6 +19,7 @@ from books.views import *
 
 urlpatterns = [
     url(r'^$', hello,name = 'home'),
+    url(r'^admin/', admin.site.urls),
     url(r'^time/$', current_datetime,name = 'time'),
     url(r'^time/plus/(\d{1,2})/$', hours_ahead),
 ]
