@@ -14,3 +14,4 @@ two main function:Count and Download
 4.learn MongoDB+spark+python or MongoDB+python
 5.review linear algebra,the theories of probability and statistics and advanced mathematics
 6.learn ruby to do some interesting things
+7.try to use flask+vue+mongodb to write a site
